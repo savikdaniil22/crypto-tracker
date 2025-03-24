@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetCoinsQuery } from "../services/coinsApi";
 import { filterCoins } from "../utils/filterCoins";
-import { ICoin } from "../types";
+import { ICoin, SortField, SortOrder } from "../types";
 import AddCoinModal from "../components/AddCoinModal";
 import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
@@ -12,6 +12,8 @@ const MainPage = () => {
   const [search, setSearch] = useState("");
   const [selectedCoin, setSelectedCoin] = useState<ICoin | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortField, setSortField] = useState<SortField | null>(null);
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
 
   const {
     data: coins = [],
@@ -23,8 +25,32 @@ const MainPage = () => {
   });
 
   const filteredCoins = filterCoins(coins, search);
-  const paginatedCoins = filteredCoins.slice(page * perPage, (page + 1) * perPage);
+
+  const sortedCoins = [...filteredCoins].sort((a, b) => {
+    if (!sortField) return 0;
+
+    const aValue = parseFloat(a[sortField]);
+    const bValue = parseFloat(b[sortField]);
+
+    if (isNaN(aValue) || isNaN(bValue)) return 0;
+
+    return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
+  });
+
+  const paginatedCoins = sortedCoins.slice(page * perPage, (page + 1) * perPage);
   const totalPages = Math.ceil(filteredCoins.length / perPage);
+
+  const handleSortChange = (field: SortField) => {
+    if (sortField !== field) {
+      setSortField(field);
+      setSortOrder("asc");
+    } else if (sortOrder === "asc") {
+      setSortOrder("desc");
+    } else {
+      setSortField(null);
+    }
+    setPage(0);
+  };
 
   const handleAddClick = (coin: ICoin) => {
     setSelectedCoin(coin);
@@ -62,7 +88,13 @@ const MainPage = () => {
         }}
       />
 
-      <CoinTable coins={paginatedCoins} onAddClick={handleAddClick} />
+      <CoinTable
+        coins={paginatedCoins}
+        onAddClick={handleAddClick}
+        sortField={sortField}
+        sortOrder={sortOrder}
+        onSortChange={handleSortChange}
+      />
 
       <Pagination
         page={page}
