@@ -53,7 +53,7 @@ export interface PaginationProps {
   onPrev: () => void;
   onSetPage: (page: number) => void;
   onSetPerPage: (value: number) => void;
-  totalPages?: number; // ← добавить
-  totalItems?: number; // ← добавить
+  totalPages?: number;
+  totalItems?: number;
   showOnlyArrows?: boolean;
 }

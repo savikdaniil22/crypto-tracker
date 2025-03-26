@@ -37,7 +37,6 @@ const Pagination = ({
 
   return (
     <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600 w-full">
-      {/* Центрированные кнопки пагинации */}
       <div className="flex justify-center items-center gap-2 w-full">
         <button
           onClick={onPrev}
