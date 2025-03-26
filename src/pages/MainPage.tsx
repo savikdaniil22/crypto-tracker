@@ -4,6 +4,8 @@ import { ICoin, SortField, SortOrder } from "../types";
 import AddCoinModal from "../components/AddCoinModal";
 import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 const MainPage = () => {
   const [page, setPage] = useState(0);
@@ -72,11 +74,10 @@ const MainPage = () => {
   const handleNextPage = () => setPage((prev) => prev + 1);
   const handlePrevPage = () => setPage((prev) => Math.max(prev - 1, 0));
 
-  const from = offset + 1;
-  const to = offset + coins.length;
-
-  if (isLoading) return <div className="text-center mt-10">Loading...</div>;
-  if (isError) return <div className="text-center text-red-500 mt-10">Failed to load data</div>;
+  if (isLoading) return <Loader />;
+  if (isError) {
+    return <ErrorMessage message="Failed to load data" onRetry={() => window.location.reload()} />;
+  }
 
   return (
     <div className="max-w-[1920px] mx-auto p-6">

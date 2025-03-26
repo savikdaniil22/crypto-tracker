@@ -19,7 +19,17 @@ export const coinsApi = createApi({
       },
       transformResponse: (response: { data: ICoin[] }) => response.data,
     }),
+
+    getCoinById: builder.query<ICoin, string>({
+      query: (id) => `assets/${id}`,
+      transformResponse: (response: { data: ICoin }) => response.data,
+    }),
+
+    getCoinHistory: builder.query<any, { id: string; interval: string }>({
+      query: ({ id, interval }) => `assets/${id}/history?interval=${interval}`,
+      transformResponse: (response: { data: any[] }) => response.data,
+    }),
   }),
 });
 
-export const { useGetCoinsQuery } = coinsApi;
+export const { useGetCoinsQuery, useGetCoinByIdQuery, useGetCoinHistoryQuery } = coinsApi;

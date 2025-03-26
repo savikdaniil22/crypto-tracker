@@ -6,6 +6,8 @@ export interface ICoin {
   priceUsd: string;
   marketCapUsd: string;
   changePercent24Hr: string;
+  supply?: string;
+  maxSupply?: string;
 }
 
 export interface PortfolioItem {
@@ -56,4 +58,10 @@ export interface PaginationProps {
   totalPages?: number;
   totalItems?: number;
   showOnlyArrows?: boolean;
+}
+
+export interface ErrorMessageProps {
+  message: string;
+  onRetry?: () => void;
+  onBack?: () => void;
 }

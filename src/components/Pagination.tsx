@@ -8,33 +8,8 @@ const Pagination = ({
   hasNextPage,
   onNext,
   onPrev,
-  onSetPage,
   onSetPerPage,
 }: PaginationProps & { hasNextPage: boolean }) => {
-  const renderPages = () => {
-    const pages = [];
-    const maxVisible = 3;
-
-    const lastPage = hasNextPage ? page + 1 : page;
-    const start = Math.max(0, lastPage - (maxVisible - 1));
-    const end = lastPage + 1;
-
-    for (let i = start; i < end; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => onSetPage(i)}
-          className={`w-8 h-8 rounded text-sm font-medium mx-1 ${
-            i === page ? "bg-blue-600 text-white" : "text-gray-800 hover:bg-gray-200"
-          }`}>
-          {i + 1}
-        </button>
-      );
-    }
-
-    return pages;
-  };
-
   return (
     <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600 w-full">
       <div className="flex justify-center items-center gap-2 w-full">
