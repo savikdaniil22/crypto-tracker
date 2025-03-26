@@ -4,23 +4,20 @@ const rowsPerPageOptions = [20, 50, 100];
 
 const Pagination = ({
   page,
-  totalPages,
-  totalItems,
   perPage,
+  hasNextPage,
   onNext,
   onPrev,
   onSetPage,
   onSetPerPage,
-}: PaginationProps) => {
-  const from = page * perPage + 1;
-  const to = Math.min((page + 1) * perPage, totalItems);
-
+}: PaginationProps & { hasNextPage: boolean }) => {
   const renderPages = () => {
     const pages = [];
-    const maxVisible = 5;
+    const maxVisible = 3;
 
-    const start = Math.max(0, Math.min(page - 2, totalPages - maxVisible));
-    const end = Math.min(totalPages, start + maxVisible);
+    const lastPage = hasNextPage ? page + 1 : page;
+    const start = Math.max(0, lastPage - (maxVisible - 1));
+    const end = lastPage + 1;
 
     for (let i = start; i < end; i++) {
       pages.push(
@@ -39,13 +36,9 @@ const Pagination = ({
   };
 
   return (
-    <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-gray-600">
-      <div>
-        Showing <span className="font-semibold">{from}</span> - <span className="font-semibold">{to}</span> out of{" "}
-        <span className="font-semibold">{totalItems}</span>
-      </div>
-
-      <div className="flex items-center gap-2">
+    <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600 w-full">
+      {/* Центрированные кнопки пагинации */}
+      <div className="flex justify-center items-center gap-2 w-full">
         <button
           onClick={onPrev}
           disabled={page === 0}
@@ -53,16 +46,13 @@ const Pagination = ({
           &lt;
         </button>
 
-        {renderPages()}
-
         <button
           onClick={onNext}
-          disabled={page + 1 >= totalPages}
+          disabled={!hasNextPage}
           className="px-2 py-1 rounded border disabled:opacity-50 hover:bg-gray-200">
           &gt;
         </button>
       </div>
-
       <div className="flex items-center gap-2">
         <span>Show rows:</span>
         <select

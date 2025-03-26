@@ -48,11 +48,12 @@ export interface CoinTableHeaderProps {
 
 export interface PaginationProps {
   page: number;
-  totalPages: number;
-  totalItems: number;
   perPage: number;
   onNext: () => void;
   onPrev: () => void;
   onSetPage: (page: number) => void;
   onSetPerPage: (value: number) => void;
+  totalPages?: number; // ← добавить
+  totalItems?: number; // ← добавить
+  showOnlyArrows?: boolean;
 }

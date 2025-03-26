@@ -1,44 +1,46 @@
 import { useState } from "react";
 import { useGetCoinsQuery } from "../services/coinsApi";
-import { filterCoins } from "../utils/filterCoins";
 import { ICoin, SortField, SortOrder } from "../types";
 import AddCoinModal from "../components/AddCoinModal";
 import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
 
 const MainPage = () => {
-  const [page, setPage] = useState<number>(0);
-  const [perPage, setPerPage] = useState<number>(100);
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(100);
   const [search, setSearch] = useState("");
   const [selectedCoin, setSelectedCoin] = useState<ICoin | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
 
+  const offset = page * perPage;
+  const sortParam = sortField ? `${sortOrder === "desc" ? "-" : ""}${sortField}` : undefined;
+
   const {
     data: coins = [],
     isLoading,
     isError,
   } = useGetCoinsQuery({
-    limit: 2000,
-    offset: 0,
+    limit: perPage,
+    offset,
+    sort: sortParam,
+    search,
   });
 
-  const filteredCoins = filterCoins(coins, search);
+  const { data: nextCoins = [] } = useGetCoinsQuery(
+    {
+      limit: perPage,
+      offset: (page + 1) * perPage,
+      sort: sortParam,
+      search,
+    },
+    {
+      skip: isLoading,
+    }
+  );
 
-  const sortedCoins = [...filteredCoins].sort((a, b) => {
-    if (!sortField) return 0;
-
-    const aValue = parseFloat(a[sortField]);
-    const bValue = parseFloat(b[sortField]);
-
-    if (isNaN(aValue) || isNaN(bValue)) return 0;
-
-    return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
-  });
-
-  const paginatedCoins = sortedCoins.slice(page * perPage, (page + 1) * perPage);
-  const totalPages = Math.ceil(filteredCoins.length / perPage);
+  const hasNextPage = nextCoins.length > 0;
 
   const handleSortChange = (field: SortField) => {
     if (sortField !== field) {
@@ -70,6 +72,9 @@ const MainPage = () => {
   const handleNextPage = () => setPage((prev) => prev + 1);
   const handlePrevPage = () => setPage((prev) => Math.max(prev - 1, 0));
 
+  const from = offset + 1;
+  const to = offset + coins.length;
+
   if (isLoading) return <div className="text-center mt-10">Loading...</div>;
   if (isError) return <div className="text-center text-red-500 mt-10">Failed to load data</div>;
 
@@ -89,7 +94,7 @@ const MainPage = () => {
       />
 
       <CoinTable
-        coins={paginatedCoins}
+        coins={coins}
         onAddClick={handleAddClick}
         sortField={sortField}
         sortOrder={sortOrder}
@@ -98,9 +103,8 @@ const MainPage = () => {
 
       <Pagination
         page={page}
-        totalPages={totalPages}
-        totalItems={filteredCoins.length}
         perPage={perPage}
+        hasNextPage={hasNextPage}
         onNext={handleNextPage}
         onPrev={handlePrevPage}
         onSetPage={setPage}
