@@ -1,4 +1,4 @@
-import { ErrorMessageProps } from "../types";
+import { ErrorMessageProps } from "../../types/index";
 
 const ErrorMessage = ({ message, onRetry, onBack }: ErrorMessageProps) => {
   return (

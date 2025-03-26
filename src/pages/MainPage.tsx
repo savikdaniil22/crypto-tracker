@@ -4,8 +4,8 @@ import { ICoin, SortField, SortOrder } from "../types";
 import AddCoinModal from "../components/AddCoinModal";
 import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
+import Loader from "../components/ui/Loader";
+import ErrorMessage from "../components/ui/ErrorMessage";
 
 const MainPage = () => {
   const [page, setPage] = useState(0);

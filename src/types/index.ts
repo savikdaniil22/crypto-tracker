@@ -65,3 +65,14 @@ export interface ErrorMessageProps {
   onRetry?: () => void;
   onBack?: () => void;
 }
+
+export interface CoinChartProps {
+  history: { time: number; priceUsd: string }[];
+  interval: "h1" | "h12" | "d1";
+  onIntervalChange: (value: "h1" | "h12" | "d1") => void;
+}
+
+export interface CoinHeaderProps {
+  name: string;
+  symbol: string;
+}
