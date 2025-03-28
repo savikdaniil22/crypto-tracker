@@ -13,6 +13,7 @@ export interface ICoin {
 export interface PortfolioItem {
   coin: ICoin;
   amount: number;
+  valueAtBuy: number;
 }
 
 export interface PortfolioState {
@@ -26,7 +27,6 @@ export interface AddCoinModalProps {
   coin: ICoin | null;
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (amount: number) => void;
 }
 
 export interface CoinRowProps {
@@ -75,4 +75,9 @@ export interface CoinChartProps {
 export interface CoinHeaderProps {
   name: string;
   symbol: string;
+}
+
+export interface PortfolioModalProps {
+  isOpen: boolean;
+  onClose: () => void;
 }

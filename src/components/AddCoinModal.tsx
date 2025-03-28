@@ -1,18 +1,57 @@
+import { useState, useEffect } from "react";
 import { AddCoinModalProps } from "../types";
 import { calculateUsdValue } from "../utils/calculateValue";
-import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import { addToPortfolio } from "../app/portfolioSlice";
 
-const AddCoinModal = ({ coin, isOpen, onClose, onAdd }: AddCoinModalProps) => {
-  const [amount, setAmount] = useState<number>(0);
+const MIN_AMOUNT = 0.0001;
+const MAX_AMOUNT = 1_000_000;
+
+const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
+  const [amountStr, setAmountStr] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    setAmount(0);
+    setAmountStr("");
+    setError(null);
   }, [coin]);
 
   if (!isOpen || !coin) return null;
 
   const price = parseFloat(coin.priceUsd);
-  const totalValue = calculateUsdValue(amount, price);
+  const amount = parseFloat(amountStr);
+  const isValid = !isNaN(amount) && amount >= MIN_AMOUNT && amount <= MAX_AMOUNT;
+  const totalValue = isValid ? calculateUsdValue(amount, price) : "$0.00";
+
+  const handleInputChange = (value: string) => {
+    setAmountStr(value);
+    const parsed = parseFloat(value);
+    if (isNaN(parsed)) {
+      setError("Invalid number");
+    } else if (parsed < MIN_AMOUNT) {
+      setError(`Minimum amount is ${MIN_AMOUNT}`);
+    } else if (parsed > MAX_AMOUNT) {
+      setError(`Maximum amount is ${MAX_AMOUNT}`);
+    } else {
+      setError(null);
+    }
+  };
+
+  const handleAdd = () => {
+    if (!error && isValid) {
+      dispatch(
+        addToPortfolio({
+          coin,
+          amount,
+          valueAtBuy: price * amount,
+        })
+      );
+      setAmountStr("");
+      onClose();
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
@@ -32,17 +71,14 @@ const AddCoinModal = ({ coin, isOpen, onClose, onAdd }: AddCoinModalProps) => {
 
         <label className="block text-sm font-medium mb-1">Amount</label>
         <input
-          type="number"
-          step="any"
+          type="text"
           inputMode="decimal"
-          value={amount || ""}
-          onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
-          placeholder="e.g. 2.5"
-          className="w-full border rounded px-3 py-2 mb-3 text-sm appearance-none 
-                    [&::-webkit-inner-spin-button]:appearance-none 
-                    [&::-webkit-outer-spin-button]:appearance-none 
-                    [moz-appearance:textfield]"
+          value={amountStr}
+          onChange={(e) => handleInputChange(e.target.value)}
+          placeholder="e.g. 0.001"
+          className="w-full border rounded px-3 py-2 mb-1 text-sm"
         />
+        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
         <div className="text-sm text-gray-500 mb-4">≈ {totalValue}</div>
 
@@ -51,12 +87,11 @@ const AddCoinModal = ({ coin, isOpen, onClose, onAdd }: AddCoinModalProps) => {
             Cancel
           </button>
           <button
-            onClick={() => {
-              onAdd(amount);
-              setAmount(0);
-              onClose();
-            }}
-            className="px-4 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700">
+            onClick={handleAdd}
+            disabled={!!error || !amountStr}
+            className={`px-4 py-1 text-sm rounded text-white transition ${
+              !!error || !amountStr ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+            }`}>
             Add to Portfolio
           </button>
         </div>

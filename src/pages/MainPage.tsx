@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
 import Loader from "../components/ui/Loader";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import PortfolioHeader from "../components/PortfolioHeader";
 
 const MainPage = () => {
   const [page, setPage] = useState(0);
@@ -66,11 +67,6 @@ const MainPage = () => {
     setSelectedCoin(null);
   };
 
-  const handleAddToPortfolio = (amount: number) => {
-    console.log("Added to portfolio", selectedCoin, "amount:", amount);
-    handleModalClose();
-  };
-
   const handleNextPage = () => setPage((prev) => prev + 1);
   const handlePrevPage = () => setPage((prev) => Math.max(prev - 1, 0));
 
@@ -82,6 +78,8 @@ const MainPage = () => {
   return (
     <div className="max-w-[1920px] mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Cryptocurrencies</h1>
+
+      <PortfolioHeader />
 
       <input
         type="text"
@@ -115,7 +113,7 @@ const MainPage = () => {
         }}
       />
 
-      <AddCoinModal coin={selectedCoin} isOpen={isModalOpen} onClose={handleModalClose} onAdd={handleAddToPortfolio} />
+      <AddCoinModal coin={selectedCoin} isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
   );
 };

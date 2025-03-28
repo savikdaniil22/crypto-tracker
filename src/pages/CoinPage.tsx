@@ -37,15 +37,7 @@ const CoinPage = () => {
         Add
       </button>
 
-      <AddCoinModal
-        coin={coin}
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onAdd={(amount) => {
-          console.log("Add to portfolio:", coin, amount);
-          setModalOpen(false);
-        }}
-      />
+      <AddCoinModal coin={coin} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };
