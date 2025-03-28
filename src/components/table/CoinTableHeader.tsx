@@ -1,5 +1,5 @@
 import React from "react";
-import { CoinTableHeaderProps } from "../types";
+import { CoinTableHeaderProps } from "../../types";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa6";
 
 const SortIcon = FaSort as unknown as React.FC<React.SVGProps<SVGSVGElement>>;

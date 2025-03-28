@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { CoinRowProps } from "../types";
-import { formatNumber } from "../utils/formatNumber";
-import AddButton from "./ui/AddButton";
+import { CoinRowProps } from "../../types";
+import { formatNumber } from "../../utils/formatNumber";
+import AddButton from "../ui/AddButton";
 
 const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import CoinRow from "./CoinRow";
-import CoinTableHeader from "./CoinTableHeader";
-import { CoinTableProps } from "../types";
+import CoinTableHeader from "../table/CoinTableHeader";
+import { CoinTableProps } from "../../types";
 
 const CoinTable = ({ coins, onAddClick, sortField, sortOrder, onSortChange }: CoinTableProps) => {
   return (
