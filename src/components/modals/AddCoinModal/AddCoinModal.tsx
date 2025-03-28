@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { AddCoinModalProps } from "../types";
-import { calculateUsdValue } from "../utils/calculateValue";
+import { AddCoinModalProps } from "../../../types";
+import { calculateUsdValue } from "../../../utils/calculateValue";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../app/store";
-import { addToPortfolio } from "../app/portfolioSlice";
+import { AppDispatch } from "../../../app/store";
+import { addToPortfolio } from "../../../app/portfolioSlice";
+import CoinInfo from "./CoinInfo";
+import AmountInput from "./AmountInput";
+import ModalFooter from "./ModalFooter";
 
 const MIN_AMOUNT = 0.0001;
 const MAX_AMOUNT = 1_000_000;
@@ -60,41 +63,14 @@ const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
           Add {coin.name} <span className="text-gray-500">({coin.symbol})</span>
         </h2>
 
-        <div className="flex items-center gap-3 mb-4">
-          <img
-            src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
-            alt={coin.symbol}
-            className="w-8 h-8"
-          />
-          <span className="text-gray-600 text-sm">{coin.name}</span>
-        </div>
-
-        <label className="block text-sm font-medium mb-1">Amount</label>
-        <input
-          type="text"
-          inputMode="decimal"
-          value={amountStr}
-          onChange={(e) => handleInputChange(e.target.value)}
-          placeholder="e.g. 0.001"
-          className="w-full border rounded px-3 py-2 mb-1 text-sm"
+        <CoinInfo coin={coin} />
+        <AmountInput
+          amountStr={amountStr}
+          handleInputChange={handleInputChange}
+          error={error}
+          totalValue={totalValue}
         />
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-        <div className="text-sm text-gray-500 mb-4">≈ {totalValue}</div>
-
-        <div className="flex justify-end gap-2">
-          <button onClick={onClose} className="px-4 py-1 text-sm rounded border border-gray-300 hover:bg-gray-100">
-            Cancel
-          </button>
-          <button
-            onClick={handleAdd}
-            disabled={!!error || !amountStr}
-            className={`px-4 py-1 text-sm rounded text-white transition ${
-              !!error || !amountStr ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-            }`}>
-            Add to Portfolio
-          </button>
-        </div>
+        <ModalFooter onClose={onClose} handleAdd={handleAdd} isValid={isValid} amountStr={amountStr} error={error} />
       </div>
     </div>
   );

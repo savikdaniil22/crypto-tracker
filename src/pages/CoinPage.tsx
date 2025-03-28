@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGetCoinByIdQuery, useGetCoinHistoryQuery } from "../services/coinsApi";
-import AddCoinModal from "../components/AddCoinModal";
+import AddCoinModal from "../components/modals/AddCoinModal/AddCoinModal";
 import CoinHeader from "../components/coin-details/CoinHeader";
 import CoinStatsGrid from "../components/coin-details/CoinStatsGrid";
 import CoinChart from "../components/coin-details/CoinChart";

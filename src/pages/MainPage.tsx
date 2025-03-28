@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetCoinsQuery } from "../services/coinsApi";
 import { ICoin, SortField, SortOrder } from "../types";
-import AddCoinModal from "../components/AddCoinModal";
+import AddCoinModal from "../components/modals/AddCoinModal/AddCoinModal";
 import Pagination from "../components/Pagination";
 import CoinTable from "../components/CoinTable";
 import Loader from "../components/ui/Loader";
