@@ -2,6 +2,7 @@ import { CoinChartProps } from "../../types";
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import Loader from "../ui/Loader";
+import { formatNumber } from "../../utils/formatNumber";
 
 const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,7 +27,7 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
         labels,
         datasets: [
           {
-            label: "Price (USD)",
+            label: "",
             data,
             borderColor: "#3b82f6",
             backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -39,11 +40,6 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
         scales: {
           x: {
             ticks: {
@@ -53,8 +49,16 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
           },
           y: {
             ticks: {
-              callback: (value: string | number) => `$${value}`,
+              callback: (value: string | number) => {
+                const numericValue = typeof value === "string" ? parseFloat(value) : value;
+                return `${formatNumber(numericValue, { isPrice: true })}`;
+              },
             },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
           },
         },
       },

@@ -20,7 +20,7 @@ const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
 
   if (!isOpen || !coin) return null;
 
-  const price = parseFloat(coin.priceUsd);
+  const price = +coin.priceUsd;
   const amount = parseFloat(amountStr);
   const isValid = !isNaN(amount) && amount >= MIN_AMOUNT && amount <= MAX_AMOUNT;
   const totalValue = isValid ? calculateUsdValue(amount, price) : "$0.00";

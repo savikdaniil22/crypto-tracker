@@ -33,7 +33,9 @@ const PortfolioModal = ({ isOpen, onClose }: PortfolioModalProps) => {
             <tbody>
               {portfolio.map((item) => {
                 const { coin, amount, valueAtBuy } = item;
-                const currentPrice = parseFloat(coin.priceUsd);
+                const currentPrice = parseFloat(
+                  +coin.priceUsd < 0.01 ? `$${(+coin.priceUsd).toFixed(6)}` : `$${formatNumber(+coin.priceUsd)}`
+                );
                 const priceAtBuy = valueAtBuy / amount;
 
                 return (
