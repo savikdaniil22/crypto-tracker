@@ -1,36 +1,89 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { format } from "date-fns";
 import { CoinChartProps } from "../../types";
+import { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+import Loader from "../ui/Loader";
 
 const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
-  const normalizedHistory = history.map((point) => ({
-    date: format(new Date(point.time), interval === "h1" ? "HH:mm" : "MMM d"),
-    priceUsd: parseFloat(point.priceUsd),
-  }));
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstanceRef = useRef<Chart | null>(null);
+
+  useEffect(() => {
+    if (!chartRef.current || history.length === 0) return;
+
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    const ctx = chartRef.current.getContext("2d");
+    if (!ctx) return;
+
+    const labels = history.map((point) => new Date(point.time).toLocaleDateString());
+    const data = history.map((point) => parseFloat(point.priceUsd));
+
+    chartInstanceRef.current = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Price (USD)",
+            data,
+            borderColor: "#3b82f6",
+            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            fill: true,
+            tension: 0.3,
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10,
+            },
+          },
+          y: {
+            ticks: {
+              callback: (value: string | number) => `$${value}`,
+            },
+          },
+        },
+      },
+    });
+  }, [history]);
 
   return (
-    <div className="mb-6">
-      <div className="flex gap-2 mb-2">
-        {["h1", "h12", "d1"].map((int) => (
-          <button
-            key={int}
-            onClick={() => onIntervalChange(int as "h1" | "h12" | "d1")}
-            className={`px-3 py-1 rounded text-sm border ${
-              interval === int ? "bg-blue-600 text-white" : "border-gray-300"
-            }`}>
-            {int === "h1" ? "1 hour" : int === "h12" ? "12 hours" : "1 day"}
-          </button>
-        ))}
+    <div className="mt-6">
+      <div className="mb-4">
+        <label className="text-sm font-medium mr-2">Interval:</label>
+        <select
+          value={interval}
+          onChange={(e) => onIntervalChange(e.target.value as CoinChartProps["interval"])}
+          className="text-sm border px-2 py-1 rounded">
+          <option value="h1">1 Hour</option>
+          <option value="h12">12 Hours</option>
+          <option value="d1">1 Day</option>
+        </select>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={normalizedHistory} margin={{ top: 10, right: 10, bottom: 10, left: 50 }}>
-          <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-          <YAxis domain={["auto", "auto"]} tickFormatter={(val) => `$${val.toFixed(0)}`} />
-          <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} labelFormatter={(label) => `Time: ${label}`} />
-          <Line type="monotone" dataKey="priceUsd" stroke="#3b82f6" dot={false} strokeWidth={2} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className="relative h-[300px]">
+        {history.length === 0 ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-white rounded shadow">
+            <Loader />
+          </div>
+        ) : (
+          <canvas ref={chartRef} />
+        )}
+      </div>
     </div>
   );
 };
