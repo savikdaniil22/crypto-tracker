@@ -7,6 +7,7 @@ import CoinStatsGrid from "../components/coin-details/CoinStatsGrid";
 import CoinChart from "../components/coin-details/CoinChart";
 import Loader from "../components/ui/Loader";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import AddButton from "../components/ui/AddButton";
 
 const CoinPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,11 +32,7 @@ const CoinPage = () => {
       <CoinStatsGrid coin={coin} />
       <CoinChart history={history} interval={interval} onIntervalChange={setInterval} />
 
-      <button
-        onClick={() => setModalOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-6 py-2 rounded-lg transition">
-        Add
-      </button>
+      <AddButton onClick={() => setModalOpen(true)} />
 
       <AddCoinModal coin={coin} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>

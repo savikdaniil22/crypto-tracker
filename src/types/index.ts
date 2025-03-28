@@ -81,3 +81,7 @@ export interface PortfolioModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export interface AddButtonProps {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}

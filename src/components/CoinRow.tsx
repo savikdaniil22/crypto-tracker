@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { CoinRowProps } from "../types";
 import { formatNumber } from "../utils/formatNumber";
+import AddButton from "./ui/AddButton";
 
 const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = () => {
     navigate(`/coin/${coin.id}`);
+  };
+
+  const handleAddClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddClick(coin);
   };
 
   return (
@@ -35,14 +41,7 @@ const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
         {(+coin.changePercent24Hr).toFixed(2)}%
       </td>
       <td className="px-3 py-4 text-right">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddClick(coin);
-          }}
-          className="text-blue-600 border border-blue-500 rounded-full px-3 py-0.5 text-xs font-medium hover:bg-blue-50 transition">
-          Add
-        </button>
+        <AddButton onClick={handleAddClick} />
       </td>
     </tr>
   );

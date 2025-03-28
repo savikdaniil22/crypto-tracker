@@ -1,4 +1,4 @@
-import { PaginationProps } from "../types";
+import { PaginationProps } from "../../types";
 
 const rowsPerPageOptions = [20, 50, 100];
 
