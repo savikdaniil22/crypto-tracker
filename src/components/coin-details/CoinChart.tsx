@@ -40,6 +40,25 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+          mode: "index",
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            mode: "index",
+            intersect: false,
+            callbacks: {
+              label: function (context) {
+                const value = context.raw as number;
+                return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 8 })}`;
+              },
+            },
+          },
+        },
         scales: {
           x: {
             ticks: {
@@ -54,11 +73,6 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
                 return `${formatNumber(numericValue, { isPrice: true })}`;
               },
             },
-          },
-        },
-        plugins: {
-          legend: {
-            display: false,
           },
         },
       },
