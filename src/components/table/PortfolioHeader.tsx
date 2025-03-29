@@ -59,6 +59,7 @@ const PortfolioHeader = () => {
         </div>
 
         <div
+          data-testid="portfolio-header"
           onClick={() => setIsModalOpen(true)}
           className="flex justify-between items-center bg-blue-50 px-4 py-3 rounded-lg shadow cursor-pointer hover:bg-blue-100 transition w-full md:w-[49%]">
           <div>
