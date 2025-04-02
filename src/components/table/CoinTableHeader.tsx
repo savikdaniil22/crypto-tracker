@@ -6,7 +6,7 @@ const SortIcon = FaSort as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 const SortUpIcon = FaSortUp as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 const SortDownIcon = FaSortDown as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 
-const CoinTableHeader = ({ sortField, sortOrder, onSortChange }: CoinTableHeaderProps) => {
+export const CoinTableHeader = ({ sortField, sortOrder, onSortChange }: CoinTableHeaderProps) => {
   const getSortIcon = (field: string) => {
     if (sortField !== field) return <SortIcon className="inline-block ml-1 text-gray-400" />;
     return sortOrder === "asc" ? (
@@ -45,5 +45,3 @@ const CoinTableHeader = ({ sortField, sortOrder, onSortChange }: CoinTableHeader
     </thead>
   );
 };
-
-export default CoinTableHeader;

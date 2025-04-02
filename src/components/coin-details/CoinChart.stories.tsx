@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CoinChart from "./CoinChart";
+import { CoinChart } from "./CoinChart";
 
 const meta: Meta<typeof CoinChart> = {
   title: "CoinDetails/CoinChart",

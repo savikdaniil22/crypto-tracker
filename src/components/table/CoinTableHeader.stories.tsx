@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CoinTableHeader from "./CoinTableHeader";
-import { SortField, SortOrder } from "../../types";
+import { CoinTableHeader } from "./CoinTableHeader";
+import { SortField } from "../../types";
 
 const meta: Meta<typeof CoinTableHeader> = {
   title: "Table/CoinTableHeader",

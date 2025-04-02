@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { CoinRowProps } from "../../types";
 import { formatNumber } from "../../utils/formatNumber";
-import AddButton from "../ui/AddButton";
+import { AddButton } from "../ui/AddButton";
 
-const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
+export const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = () => {
@@ -46,5 +46,3 @@ const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
     </tr>
   );
 };
-
-export default CoinRow;

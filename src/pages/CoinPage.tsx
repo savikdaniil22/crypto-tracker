@@ -1,15 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGetCoinByIdQuery, useGetCoinHistoryQuery } from "../services/coinsApi";
-import AddCoinModal from "../components/modals/AddCoinModal/AddCoinModal";
-import CoinHeader from "../components/coin-details/CoinHeader";
-import CoinStatsGrid from "../components/coin-details/CoinStatsGrid";
-import CoinChart from "../components/coin-details/CoinChart";
-import Loader from "../components/ui/Loader";
-import ErrorMessage from "../components/ui/ErrorMessage";
-import AddButton from "../components/ui/AddButton";
+import { AddCoinModal } from "../components/modals/AddCoinModal/AddCoinModal";
+import { CoinHeader } from "../components/coin-details/CoinHeader";
+import { CoinStatsGrid } from "../components/coin-details/CoinStatsGrid";
+import { CoinChart } from "../components/coin-details/CoinChart";
+import { Loader } from "../components/ui/Loader";
+import { ErrorMessage } from "../components/ui/ErrorMessage";
+import { AddButton } from "../components/ui/AddButton";
 
-const CoinPage = () => {
+export const CoinPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -38,5 +38,3 @@ const CoinPage = () => {
     </div>
   );
 };
-
-export default CoinPage;

@@ -1,7 +1,7 @@
 import { ICoin } from "../../types";
 import { formatNumber } from "../../utils/formatNumber";
 
-const CoinStatsGrid = ({ coin }: { coin: ICoin }) => {
+export const CoinStatsGrid = ({ coin }: { coin: ICoin }) => {
   const price = +coin.priceUsd;
   const formattedPrice = price < 0.01 ? `$${price.toFixed(6)}` : `$${formatNumber(price)}`;
 
@@ -28,5 +28,3 @@ const CoinStatsGrid = ({ coin }: { coin: ICoin }) => {
     </div>
   );
 };
-
-export default CoinStatsGrid;

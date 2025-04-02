@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CoinStatsGrid from "./CoinStatsGrid";
+import { CoinStatsGrid } from "./CoinStatsGrid";
 import { ICoin } from "../../types";
 
 const meta: Meta<typeof CoinStatsGrid> = {

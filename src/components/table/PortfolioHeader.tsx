@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useGetCoinsQuery } from "../../services/coinsApi";
 import { formatNumber } from "../../utils/formatNumber";
-import PortfolioModal from "../modals/PortfolioModal/PortfolioModal";
+import { PortfolioModal } from "../modals/PortfolioModal/PortfolioModal";
 
-const PortfolioHeader = () => {
+export const PortfolioHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const portfolio = useSelector((state: RootState) => state.portfolio.items);
 
@@ -78,5 +78,3 @@ const PortfolioHeader = () => {
     </>
   );
 };
-
-export default PortfolioHeader;

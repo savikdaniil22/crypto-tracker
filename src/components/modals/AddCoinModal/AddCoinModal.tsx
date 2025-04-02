@@ -4,14 +4,14 @@ import { calculateUsdValue } from "../../../utils/calculateValue";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { addToPortfolio } from "../../../app/portfolioSlice";
-import CoinInfo from "./CoinInfo";
-import AmountInput from "./AmountInput";
-import ModalFooter from "./ModalFooter";
+import { CoinInfo } from "./CoinInfo";
+import { AmountInput } from "./AmountInput";
+import { ModalFooter } from "./ModalFooter";
 
 const MIN_AMOUNT = 0.0001;
 const MAX_AMOUNT = 1_000_000;
 
-const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
+export const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
   const [amountStr, setAmountStr] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch<AppDispatch>();
@@ -75,5 +75,3 @@ const AddCoinModal = ({ coin, isOpen, onClose }: AddCoinModalProps) => {
     </div>
   );
 };
-
-export default AddCoinModal;

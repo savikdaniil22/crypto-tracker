@@ -2,7 +2,7 @@ import { PaginationProps } from "../../types";
 
 const rowsPerPageOptions = [20, 50, 100];
 
-const Pagination = ({
+export const Pagination = ({
   page,
   perPage,
   hasNextPage,
@@ -41,5 +41,3 @@ const Pagination = ({
     </div>
   );
 };
-
-export default Pagination;

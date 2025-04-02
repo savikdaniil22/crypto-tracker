@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import AddCoinModal from "./AddCoinModal";
+import { AddCoinModal } from "./AddCoinModal";
 import { ICoin } from "../../../types";
 
 const meta: Meta<typeof AddCoinModal> = {

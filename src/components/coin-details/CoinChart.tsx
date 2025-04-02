@@ -1,10 +1,10 @@
 import { CoinChartProps } from "../../types";
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import Loader from "../ui/Loader";
+import { Loader } from "../ui/Loader";
 import { formatNumber } from "../../utils/formatNumber";
 
-const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
+export const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -105,5 +105,3 @@ const CoinChart = ({ history, interval, onIntervalChange }: CoinChartProps) => {
     </div>
   );
 };
-
-export default CoinChart;

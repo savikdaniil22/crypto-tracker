@@ -1,6 +1,6 @@
 import { ICoin } from "../../../types";
 
-const CoinInfo = ({ coin }: { coin: ICoin }) => (
+export const CoinInfo = ({ coin }: { coin: ICoin }) => (
   <div className="flex items-center gap-3 mb-4">
     <img
       src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
@@ -10,5 +10,3 @@ const CoinInfo = ({ coin }: { coin: ICoin }) => (
     <span className="text-gray-600 text-sm">{coin.name}</span>
   </div>
 );
-
-export default CoinInfo;

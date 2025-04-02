@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CoinRow from "./CoinRow";
+import { CoinRow } from "./CoinRow";
 import { MemoryRouter } from "react-router-dom";
 import { ICoin } from "../../types";
 

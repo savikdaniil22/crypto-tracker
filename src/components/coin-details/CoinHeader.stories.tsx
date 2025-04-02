@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CoinHeader from "./CoinHeader";
+import { CoinHeader } from "./CoinHeader";
 
 const meta: Meta<typeof CoinHeader> = {
   title: "CoinDetails/CoinHeader",

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import CoinPage from "./pages/CoinPage";
+import { MainPage } from "./pages/MainPage";
+import { CoinPage } from "./pages/CoinPage";
 
-function App() {
+export function App() {
   return (
     <Router>
       <Routes>
@@ -12,5 +12,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

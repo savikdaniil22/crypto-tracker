@@ -1,9 +1,8 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import PortfolioItemRow from "./PortfolioItemRow";
+import { PortfolioItemRow } from "./PortfolioItemRow";
 
-const PortfolioModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+export const PortfolioModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const portfolio = useSelector((state: RootState) => state.portfolio.items);
 
   if (!isOpen) return null;
@@ -45,5 +44,3 @@ const PortfolioModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
     </div>
   );
 };
-
-export default PortfolioModal;

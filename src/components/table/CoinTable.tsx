@@ -1,8 +1,8 @@
-import CoinRow from "./CoinRow";
-import CoinTableHeader from "../table/CoinTableHeader";
+import { CoinRow } from "./CoinRow";
+import { CoinTableHeader } from "../table/CoinTableHeader";
 import { CoinTableProps } from "../../types";
 
-const CoinTable = ({ coins, onAddClick, sortField, sortOrder, onSortChange }: CoinTableProps) => {
+export const CoinTable = ({ coins, onAddClick, sortField, sortOrder, onSortChange }: CoinTableProps) => {
   return (
     <table className="w-full text-base border-separate border-spacing-y-2">
       <CoinTableHeader sortField={sortField} sortOrder={sortOrder} onSortChange={onSortChange} />
@@ -12,5 +12,3 @@ const CoinTable = ({ coins, onAddClick, sortField, sortOrder, onSortChange }: Co
     </table>
   );
 };
-
-export default CoinTable;

@@ -1,6 +1,6 @@
 import { ErrorMessageProps } from "../../types/index";
 
-const ErrorMessage = ({ message, onRetry, onBack }: ErrorMessageProps) => {
+export const ErrorMessage = ({ message, onRetry, onBack }: ErrorMessageProps) => {
   return (
     <div className="flex flex-col justify-center items-center h-64 text-center">
       <p className="text-red-600 text-lg font-semibold mb-4">{message}</p>
@@ -19,5 +19,3 @@ const ErrorMessage = ({ message, onRetry, onBack }: ErrorMessageProps) => {
     </div>
   );
 };
-
-export default ErrorMessage;

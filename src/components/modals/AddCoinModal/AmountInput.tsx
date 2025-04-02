@@ -1,4 +1,4 @@
-const AmountInput = ({
+export const AmountInput = ({
   amountStr,
   handleInputChange,
   error,
@@ -23,5 +23,3 @@ const AmountInput = ({
     <div className="text-sm text-gray-500 mb-4">≈ {totalValue}</div>
   </>
 );
-
-export default AmountInput;

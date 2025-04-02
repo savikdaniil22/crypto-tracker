@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useGetCoinsQuery } from "../services/coinsApi";
 import { ICoin, SortField, SortOrder } from "../types";
-import AddCoinModal from "../components/modals/AddCoinModal/AddCoinModal";
-import Pagination from "../components/ui/Pagination";
-import CoinTable from "../components/table/CoinTable";
-import Loader from "../components/ui/Loader";
-import ErrorMessage from "../components/ui/ErrorMessage";
-import PortfolioHeader from "../components/table/PortfolioHeader";
+import { AddCoinModal } from "../components/modals/AddCoinModal/AddCoinModal";
+import { Pagination } from "../components/ui/Pagination";
+import { CoinTable } from "../components/table/CoinTable";
+import { Loader } from "../components/ui/Loader";
+import { ErrorMessage } from "../components/ui/ErrorMessage";
+import { PortfolioHeader } from "../components/table/PortfolioHeader";
 
-const MainPage = () => {
+export const MainPage = () => {
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(100);
   const [search, setSearch] = useState("");
@@ -117,5 +117,3 @@ const MainPage = () => {
     </div>
   );
 };
-
-export default MainPage;

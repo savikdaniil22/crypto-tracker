@@ -1,6 +1,6 @@
 import { CoinHeaderProps } from "../../types";
 
-const CoinHeader = ({ name, symbol }: CoinHeaderProps) => (
+export const CoinHeader = ({ name, symbol }: CoinHeaderProps) => (
   <div className="flex items-center gap-4 mb-6">
     <img
       src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`}
@@ -12,5 +12,3 @@ const CoinHeader = ({ name, symbol }: CoinHeaderProps) => (
     </h1>
   </div>
 );
-
-export default CoinHeader;

@@ -1,4 +1,4 @@
-const ModalFooter = ({
+export const ModalFooter = ({
   onClose,
   handleAdd,
   isValid,
@@ -25,5 +25,3 @@ const ModalFooter = ({
     </button>
   </div>
 );
-
-export default ModalFooter;

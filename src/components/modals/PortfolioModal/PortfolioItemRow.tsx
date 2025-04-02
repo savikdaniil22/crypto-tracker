@@ -1,12 +1,10 @@
-// src/components/PortfolioModal/PortfolioItemRow.tsx
-import React from "react";
 import { useDispatch } from "react-redux";
 import { removeFromPortfolio } from "../../../app/portfolioSlice";
 import { formatNumber } from "../../../utils/formatNumber";
 import { useNavigate } from "react-router-dom";
 import { PortfolioItem } from "../../../types/index";
 
-const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
+export const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { coin, amount, valueAtBuy } = item;
@@ -41,5 +39,3 @@ const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
     </tr>
   );
 };
-
-export default PortfolioItemRow;
