@@ -38,7 +38,10 @@ export const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
       <td className="py-2">${formatNumber(priceAtBuy)}</td>
       <td className="py-2">${formatNumber(currentPrice)}</td>
       <td className="py-2 text-right">
-        <button onClick={handleRemove} className="text-red-600 hover:text-red-800 text-xs font-medium">
+        <button
+          data-testid="remove-button"
+          onClick={handleRemove}
+          className="text-red-600 hover:text-red-800 text-xs font-medium">
           Remove
         </button>
       </td>

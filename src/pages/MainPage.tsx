@@ -82,6 +82,7 @@ export const MainPage = () => {
       <PortfolioHeader />
 
       <input
+        data-testid="search-input"
         type="text"
         placeholder="Search for a coin..."
         className="mb-4 px-4 py-2 border rounded-md w-full max-w-sm text-sm"

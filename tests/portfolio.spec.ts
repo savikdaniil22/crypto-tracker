@@ -3,12 +3,12 @@ import { test, expect } from "@playwright/test";
 test("добавление и удаление монеты Bitcoin из портфеля", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByPlaceholder("Search for a coin...").fill("Bitcoin");
+  await page.getByTestId("search-input").fill("Bitcoin");
 
   const coinRow = page.locator("tr", { hasText: "Bitcoin BTC" });
   await expect(coinRow).toBeVisible();
 
-  await coinRow.getByRole("button", { name: "Add" }).click();
+  await coinRow.getByTestId("add-button").click();
 
   const modal = page.getByTestId("add-modal");
   await expect(modal).toBeVisible();
@@ -27,7 +27,7 @@ test("добавление и удаление монеты Bitcoin из пор�
   const firstRow = portfolioModal.locator("tbody tr", { hasText: "Bitcoin" }).first();
   await expect(firstRow).toBeVisible();
 
-  await firstRow.getByRole("button", { name: /remove/i }).click();
+  await firstRow.getByTestId("remove-button").click();
 
   await expect(portfolioModal.locator("tbody tr", { hasText: "Bitcoin" })).toHaveCount(0);
 });

@@ -7,8 +7,8 @@ test("работа пагинации: 3 страницы вперёд, 3 стр
 
   const page1Coin = await getFirstRowText();
 
-  const next = page.getByRole("button", { name: ">" });
-  const prev = page.getByRole("button", { name: "<" });
+  const next = page.getByTestId("pagination-next");
+  const prev = page.getByTestId("pagination-prev");
 
   await next.click();
   await page.waitForTimeout(300);

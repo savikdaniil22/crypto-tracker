@@ -12,10 +12,14 @@ export const PortfolioModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: 
       <div
         data-testid="portfolio-modal"
         className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh]">
-        <h2 className="text-xl font-semibold mb-4">Your Portfolio</h2>
+        <h2 data-testid="portfolio-header" className="text-xl font-semibold mb-4">
+          Your Portfolio
+        </h2>
 
         {portfolio.length === 0 ? (
-          <p className="text-sm text-gray-500">Your portfolio is empty.</p>
+          <p data-testid="empty-portfolio" className="text-sm text-gray-500">
+            Your portfolio is empty.
+          </p>
         ) : (
           <table className="w-full text-sm">
             <thead>

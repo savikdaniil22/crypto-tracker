@@ -14,6 +14,7 @@ export const Pagination = ({
     <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600 w-full">
       <div className="flex justify-center items-center gap-2 w-full">
         <button
+          data-testid="pagination-prev"
           onClick={onPrev}
           disabled={page === 0}
           className="px-2 py-1 rounded border disabled:opacity-50 hover:bg-gray-200">
@@ -21,6 +22,7 @@ export const Pagination = ({
         </button>
 
         <button
+          data-testid="pagination-next"
           onClick={onNext}
           disabled={!hasNextPage}
           className="px-2 py-1 rounded border disabled:opacity-50 hover:bg-gray-200">

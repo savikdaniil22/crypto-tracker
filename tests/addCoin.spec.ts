@@ -3,11 +3,11 @@ import { test, expect } from "@playwright/test";
 test("валидация min и max значений при добавлении монеты", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByPlaceholder("Search for a coin...").fill("Birds");
+  await page.getByTestId("search-input").fill("Birds");
   const coinRow = page.locator("tr", { hasText: "Birds BIRDS" });
   await expect(coinRow).toBeVisible();
 
-  await coinRow.locator("button", { hasText: "Add" }).click();
+  await coinRow.getByTestId("add-button").click();
 
   const modal = page.getByTestId("add-modal");
   await expect(modal).toBeVisible();
@@ -26,5 +26,7 @@ test("валидация min и max значений при добавлении
 
   await expect(modal).toBeHidden();
 
-  await expect(page.getByText("Your Portfolio")).toBeVisible();
+  await expect(page.getByTestId("portfolio-header")).toBeVisible();
+
+  await expect(page.getByTestId("empty-portfolio")).toHaveCount(0);
 });
