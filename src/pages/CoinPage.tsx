@@ -19,12 +19,16 @@ export const CoinPage = () => {
   const { data: coin, isLoading, isError } = useGetCoinByIdQuery(id || "", { skip: !id });
   const { data: history = [] } = useGetCoinHistoryQuery({ id: id || "", interval }, { skip: !id });
 
+  const handleBack = () => navigate(-1);
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
+
   if (isLoading) return <Loader />;
-  if (isError || !coin) return <ErrorMessage message="Coin not found." onBack={() => navigate(-1)} />;
+  if (isError || !coin) return <ErrorMessage message="Coin not found." onBack={handleBack} />;
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="mb-4 text-sm text-blue-600 hover:text-blue-800 transition">
+      <button onClick={handleBack} className="mb-4 text-sm text-blue-600 hover:text-blue-800 transition">
         ← Back to table
       </button>
 
@@ -32,9 +36,8 @@ export const CoinPage = () => {
       <CoinStatsGrid coin={coin} />
       <CoinChart history={history} interval={interval} onIntervalChange={setInterval} />
 
-      <AddButton onClick={() => setModalOpen(true)} />
-
-      <AddCoinModal coin={coin} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <AddButton onClick={handleOpenModal} />
+      <AddCoinModal coin={coin} isOpen={modalOpen} onClose={handleCloseModal} />
     </div>
   );
 };

@@ -35,7 +35,6 @@ export const CoinRow = ({ coin, onAddClick }: CoinRowProps) => {
         </div>
       </td>
       <td className="px-3 py-4 font-semibold">{formatNumber(+coin.priceUsd, { isPrice: true })}</td>
-
       <td className="px-3 py-4 font-semibold">{formatNumber(+coin.marketCapUsd)}</td>
       <td className={`px-3 py-4 font-semibold ${+coin.changePercent24Hr > 0 ? "text-green-500" : "text-red-500"}`}>
         {(+coin.changePercent24Hr).toFixed(2)}%

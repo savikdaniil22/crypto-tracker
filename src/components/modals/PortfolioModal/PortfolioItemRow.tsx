@@ -12,9 +12,17 @@ export const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
   const currentPrice = parseFloat(coin.priceUsd);
   const priceAtBuy = valueAtBuy / amount;
 
+  const handleNavigate = () => {
+    navigate(`/coin/${coin.id}`);
+  };
+
+  const handleRemove = () => {
+    dispatch(removeFromPortfolio(coin.id));
+  };
+
   return (
     <tr key={coin.id} className="border-b hover:bg-gray-50">
-      <td className="py-2 cursor-pointer text-blue-600 hover:underline" onClick={() => navigate(`/coin/${coin.id}`)}>
+      <td className="py-2 cursor-pointer text-blue-600 hover:underline" onClick={handleNavigate}>
         <div className="flex items-center gap-2">
           <img
             src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
@@ -30,9 +38,7 @@ export const PortfolioItemRow = ({ item }: { item: PortfolioItem }) => {
       <td className="py-2">${formatNumber(priceAtBuy)}</td>
       <td className="py-2">${formatNumber(currentPrice)}</td>
       <td className="py-2 text-right">
-        <button
-          onClick={() => dispatch(removeFromPortfolio(coin.id))}
-          className="text-red-600 hover:text-red-800 text-xs font-medium">
+        <button onClick={handleRemove} className="text-red-600 hover:text-red-800 text-xs font-medium">
           Remove
         </button>
       </td>
